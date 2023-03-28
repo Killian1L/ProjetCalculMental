@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    MainActivity    -->
+    <string name="play"> Jouer </string>
+
+    <!--    CalculMentalActivity    -->
+    <string name="life"> Vie : </string>
+    <string name="score"> Score : </string>
+
+</resources>
