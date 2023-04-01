@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalculMentalActivity">
+    tools:context=".RegistrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,20 +16,31 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/calculToDo"
+            android:id="@+id/yourScoreTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/calcul" />
+            android:text="@string/yourScore" />
 
         <EditText
-            android:id="@+id/answerText"
+            android:id="@+id/pseudoEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/answer"
+            android:hint="@string/pseudo"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            tools:ignore="LabelFor,VisualLintTextFieldSize"
             android:autofillHints="" />
+
+        <Button
+            android:id="@+id/saveTheScoreButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/saveScore" />
+
+        <Button
+            android:id="@+id/backToHomeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backToHome" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

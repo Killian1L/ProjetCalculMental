@@ -2,17 +2,23 @@ package fr.projetcalculmental;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class CalculMentalActivity extends AppCompatActivity {
 
     private TextView calculToDo;
+    private EditText answerText;
 
     private int life;
     private int score;
@@ -21,6 +27,7 @@ public class CalculMentalActivity extends AppCompatActivity {
     private int premierElement;
     private int deuxiemeElement;
     private String symbole;
+    private double answer;
 
     private MenuItem lifeItem;
     private MenuItem scoreItem;
@@ -32,11 +39,24 @@ public class CalculMentalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calcul_mental);
 
         calculToDo = findViewById(R.id.calculToDo);
+        answerText = findViewById(R.id.answerText);
+
+        answerText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+                //If the keyevent is a key-down event on the "enter" button
+                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    verifyAnswer();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         life = 3;
         score = 0;
         minimum = 1;
-        maximum = 100;
+        maximum = 10;
     }
 
     @Override
@@ -82,7 +102,52 @@ public class CalculMentalActivity extends AppCompatActivity {
         deuxiemeElement = random.nextInt(maximum-minimum) + minimum;
 
         calculToDo.setText(premierElement + symbole + deuxiemeElement);
+        calculAnswer();
 
         return true; // a retirer quand plus de clicklistenr sur score
+    }
+
+    private void calculAnswer() {
+        switch (symbole) {
+            case "+":
+                answer = premierElement + deuxiemeElement;
+                break;
+            case "-":
+                answer = premierElement - deuxiemeElement;
+                break;
+            case "*":
+                answer = premierElement * deuxiemeElement;
+                break;
+            case "/":
+                answer = (double) premierElement / deuxiemeElement;
+                break;
+        }
+    }
+
+    private void verifyAnswer(){
+        try {
+            String userAnswerText = answerText.getText().toString()
+                                    .replace(",", ".");
+            double userAnswer = Double.parseDouble(userAnswerText);
+            if(answer == userAnswer) {
+                Toast.makeText(this, "Bonne réponse !", Toast.LENGTH_SHORT).show();
+                score++;
+            } else {
+                Toast.makeText(this, "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
+                life--;
+            }
+            if(life > 0) {
+                updateToolBar();
+                generateCalcul();
+            } else {
+                Intent intent = new Intent(this, RegistrationActivity.class);
+                intent.putExtra("SCORE", score);
+                startActivity(intent);
+            }
+
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Votre réponse est mal écrite !",
+                            Toast.LENGTH_SHORT).show();
+        }
     }
 }

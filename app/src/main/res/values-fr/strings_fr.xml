@@ -3,9 +3,22 @@
 
     <!--    MainActivity    -->
     <string name="play"> Jouer </string>
+    <string name="highScoreButton"> Meilleur Score </string>
 
     <!--    CalculMentalActivity    -->
     <string name="life"> Vie : </string>
     <string name="score"> Score : </string>
+    <string name="calcul"> Le calcul sera affiché ici </string>
+    <string name="answer"> Votre réponse </string>
+
+    <!--    RegistrationActivity    -->
+    <string name="pseudo"> Votre pseudo </string>
+    <string name="saveScore"> Sauvegarder votre score </string>
+    <string name="yourScore"> Votre score : </string>
+    <string name="backToHome"> Revenir à la page principale </string>
+
+    <!--    HighScoreActivity    -->
+    <string name="bestScorePseudo"> Pseudo : </string>
+    <string name="bestScoreScore"> Score : </string>
 
 </resources>

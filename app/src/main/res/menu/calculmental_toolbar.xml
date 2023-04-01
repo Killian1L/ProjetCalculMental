@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/life_toolbar"
+        android:checkable="false"
         android:title="@string/life"
         app:showAsAction="ifRoom" />
     <item
