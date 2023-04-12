@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="backToHome"> Revenir à la page principale </string>
+
     <!--    MainActivity    -->
     <string name="play"> Jouer </string>
     <string name="highScoreButton"> Meilleur Score </string>
+    <string name="aboutButton"> À propos </string>
 
     <!--    CalculMentalActivity    -->
     <string name="life"> Vie : </string>
@@ -15,10 +18,15 @@
     <string name="pseudo"> Votre pseudo </string>
     <string name="saveScore"> Sauvegarder votre score </string>
     <string name="yourScore"> Votre score : </string>
-    <string name="backToHome"> Revenir à la page principale </string>
 
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>
     <string name="bestScoreScore"> Score : </string>
+
+    <!--    AboutActivity    -->
+    <string name="aboutText"> Créé par : \n
+    - LEFRANCOIS Killian \n
+    - PINCHON Enzo
+    </string>
 
 </resources>

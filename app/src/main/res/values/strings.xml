@@ -1,10 +1,12 @@
 <resources>
 
     <string name="app_name" translatable="false">Projet Calcul Mental</string>
+    <string name="backToHome"> Back to home page </string>
 
     <!--    MainActivity    -->
     <string name="play"> Play </string>
     <string name="highScoreButton"> High Score </string>
+    <string name="aboutButton"> About </string>
 
     <!--    CalculMentalActivity    -->
     <string name="life"> Life : </string>
@@ -12,14 +14,36 @@
     <string name="calcul"> The calculation will be displayed here </string>
     <string name="answer"> Your answer </string>
 
+    <string name="bouton_0" translatable="false"> 0 </string>
+    <string name="bouton_1" translatable="false"> 1 </string>
+    <string name="bouton_2" translatable="false"> 2 </string>
+    <string name="bouton_3" translatable="false"> 3 </string>
+    <string name="bouton_4" translatable="false"> 4 </string>
+    <string name="bouton_5" translatable="false"> 5 </string>
+    <string name="bouton_6" translatable="false"> 6 </string>
+    <string name="bouton_7" translatable="false"> 7 </string>
+    <string name="bouton_8" translatable="false"> 8 </string>
+    <string name="bouton_9" translatable="false"> 9 </string>
+    <string name="bouton_result" translatable="false"> = </string>
+    <string name="bouton_dot" translatable="false"> . </string>
+    <string name="bouton_remove" translatable="false"> del </string>
+    <string name="bouton_substract" translatable="false"> - </string>
+    <string name="bouton_clear" translatable="false"> AC </string>
+    <string name="bouton_pause" translatable="false"> pause </string>
+
     <!--    RegistrationActivity    -->
     <string name="pseudo"> Your pseudo </string>
     <string name="saveScore"> Save your score </string>
     <string name="yourScore"> Your score : </string>
-    <string name="backToHome"> Back to home page </string>
 
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>
     <string name="bestScoreScore"> Score : </string>
+
+    <!--    AboutActivity    -->
+    <string name="aboutText"> Created by : \n
+    - LEFRANCOIS Killian \n
+    - PINCHON Enzo
+    </string>
 
 </resources>

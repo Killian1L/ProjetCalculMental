@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.projetcalculmental.entities.Score;
 
 public class ScoreDao extends BaseDao<Score> {
@@ -39,14 +42,31 @@ public class ScoreDao extends BaseDao<Score> {
         return score;
     }
 
-    public Score getBestScore() {
+    public List<Score> getBestScore() {
+        List<Score> bestScores = new ArrayList<>();
+
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+        String query =  "SELECT "+columnPseudo+", MAX("+columnScore+") AS " + columnScore + " " +
+                        "FROM " +getTableName() + " " +
+                        "GROUP BY " + columnPseudo + " " +
+                        "HAVING MAX(" + columnScore + ")";
+        Cursor cursor = db.rawQuery(query, null);
 
-        Cursor cursor = db.rawQuery("select "+columnPseudo+", "+columnScore+" from "+getTableName() + " WHERE "+columnScore+" = (SELECT MAX("+columnScore+") FROM "+getTableName()+")", null);
-        cursor.moveToFirst();
-        Score bestScore = this.getEntity(cursor);
+        if (cursor.moveToFirst()) {
+            do {
+                try{
+                    Score highscore = this.getEntity(cursor);
+                    bestScores.add(highscore);
+                }catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
+
+            } while (cursor.moveToNext());
+        }
+
         cursor.close();
+        db.close();
 
-        return bestScore;
+        return bestScores;
     }
 }

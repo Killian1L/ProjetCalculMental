@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,20 +19,43 @@ import java.util.Random;
 
 public class CalculMentalActivity extends AppCompatActivity {
 
+    // Partie génération du calcul / gestion du jeu
     private TextView calculToDo;
-    private EditText answerText;
-
     private int life;
     private int score;
     private int minimum;
     private int maximum;
-    private int premierElement;
-    private int deuxiemeElement;
-    private String symbole;
+    private int premierElementCalculToDo;
+    private int deuxiemeElementCalculToDo;
+    private String symboleCalculToDo;
     private double answer;
+
 
     private MenuItem lifeItem;
     private MenuItem scoreItem;
+
+    // Partie bouton
+
+    private Button bouton_0;
+    private Button bouton_1;
+    private Button bouton_2;
+    private Button bouton_3;
+    private Button bouton_4;
+    private Button bouton_5;
+    private Button bouton_6;
+    private Button bouton_7;
+    private Button bouton_8;
+    private Button bouton_9;
+    private Button bouton_result;
+    private Button bouton_substract;
+    private Button bouton_dot;
+    private Button bouton_pause;
+    private Button bouton_clear;
+    private Button bouton_remove;
+    private TextView textViewCalcul;
+    private String userAnswerString;
+
+    boolean pause = false;
 
 
     @Override
@@ -39,19 +64,58 @@ public class CalculMentalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calcul_mental);
 
         calculToDo = findViewById(R.id.calculToDo);
-        answerText = findViewById(R.id.answerText);
 
-        answerText.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
-                //If the keyevent is a key-down event on the "enter" button
-                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN)
-                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    verifyAnswer();
-                    return true;
-                }
-                return false;
-            }
-        });
+        // Bouton des chiffres
+
+        bouton_0 = findViewById(R.id.bouton_0);
+        bouton_0.setOnClickListener(view -> ajouterUnChiffre(0));
+
+        bouton_1 = findViewById(R.id.bouton_1);
+        bouton_1.setOnClickListener(view -> ajouterUnChiffre(1));
+
+        bouton_2 = findViewById(R.id.bouton_2);
+        bouton_2.setOnClickListener(view -> ajouterUnChiffre(2));
+
+        bouton_3 = findViewById(R.id.bouton_3);
+        bouton_3.setOnClickListener(view -> ajouterUnChiffre(3));
+
+        bouton_4 = findViewById(R.id.bouton_4);
+        bouton_4.setOnClickListener(view -> ajouterUnChiffre(4));
+
+        bouton_5 = findViewById(R.id.bouton_5);
+        bouton_5.setOnClickListener(view -> ajouterUnChiffre(5));
+
+        bouton_6 = findViewById(R.id.bouton_6);
+        bouton_6.setOnClickListener(view -> ajouterUnChiffre(6));
+
+        bouton_7 = findViewById(R.id.bouton_7);
+        bouton_7.setOnClickListener(view -> ajouterUnChiffre(7));
+
+        bouton_8 = findViewById(R.id.bouton_8);
+        bouton_8.setOnClickListener(view -> ajouterUnChiffre(8));
+
+        bouton_9 = findViewById(R.id.bouton_9);
+        bouton_9.setOnClickListener(view -> ajouterUnChiffre(9));
+
+        bouton_result = findViewById(R.id.bouton_result);
+        bouton_result.setOnClickListener(view -> verifyAnswer());
+
+        bouton_substract = findViewById(R.id.bouton_substract);
+        bouton_substract.setOnClickListener(view -> ajouterSubStract());
+
+        bouton_remove = findViewById(R.id.bouton_remove);
+        bouton_remove.setOnClickListener(view -> remove());
+
+        bouton_dot = findViewById(R.id.bouton_dot);
+        bouton_dot.setOnClickListener(view -> ajouterDot());
+
+        bouton_clear = findViewById(R.id.bouton_clear);
+        bouton_clear.setOnClickListener(view -> clear());
+
+        bouton_pause = findViewById(R.id.bouton_pause);
+        bouton_pause.setOnClickListener(view -> pause());
+
+        textViewCalcul = findViewById(R.id.textViewCalcul);
 
         life = 3;
         score = 0;
@@ -68,8 +132,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         scoreItem = menu.findItem(R.id.score_toolbar);
 
         updateToolBar();
-
-        scoreItem.setOnMenuItemClickListener(view -> generateCalcul());
+        generateCalcul();
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -79,66 +142,120 @@ public class CalculMentalActivity extends AppCompatActivity {
         scoreItem.setTitle(getString(R.string.score) + " " + score);
     }
 
-    private boolean generateCalcul() {
+    private void pause() {
+        if(pause) {
+            clickableAllButton(true);
+            pause = false;
+            bouton_pause.setText("pause");
+            generateCalcul();
+        } else {
+            pause = true;
+            bouton_pause.setEnabled(false);
+            bouton_pause.setText("unpause");
+            Toast.makeText(this, "Le jeu sera pause au prochain calcul !", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void clickableAllButton(boolean lockStatus) {
+        bouton_0.setEnabled(lockStatus);
+        bouton_1.setEnabled(lockStatus);
+        bouton_2.setEnabled(lockStatus);
+        bouton_3.setEnabled(lockStatus);
+        bouton_4.setEnabled(lockStatus);
+        bouton_5.setEnabled(lockStatus);
+        bouton_6.setEnabled(lockStatus);
+        bouton_7.setEnabled(lockStatus);
+        bouton_8.setEnabled(lockStatus);
+        bouton_9.setEnabled(lockStatus);
+        bouton_dot.setEnabled(lockStatus);
+        bouton_substract.setEnabled(lockStatus);
+        bouton_result.setEnabled(lockStatus);
+        bouton_clear.setEnabled(lockStatus);
+        bouton_remove.setEnabled(lockStatus);
+    }
+
+
+    // -------------------------- PARTIE CALCUL --------------------------
+
+
+    private void generateCalcul() {
+        userAnswerString = "";
+        majTextView("...");
+
         Random random = new Random();
-        premierElement = random.nextInt(maximum-minimum) + minimum;
+        premierElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
 
         int result = random.nextInt(5);
         switch (result) {
             case 1:
-                symbole = "+";
+                symboleCalculToDo = "+";
                 break;
             case 2:
-                symbole = "-";
+                symboleCalculToDo = "-";
                 break;
             case 3:
-                symbole = "*";
+                symboleCalculToDo = "*";
                 break;
             case 4:
-                symbole = "/";
+                symboleCalculToDo = "/";
                 break;
         }
 
-        deuxiemeElement = random.nextInt(maximum-minimum) + minimum;
+        deuxiemeElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
 
-        calculToDo.setText(premierElement + symbole + deuxiemeElement);
+        calculToDo.setText(premierElementCalculToDo + symboleCalculToDo + deuxiemeElementCalculToDo);
         calculAnswer();
-
-        return true; // a retirer quand plus de clicklistenr sur score
     }
 
     private void calculAnswer() {
-        switch (symbole) {
+        switch (symboleCalculToDo) {
             case "+":
-                answer = premierElement + deuxiemeElement;
+                answer = premierElementCalculToDo + deuxiemeElementCalculToDo;
                 break;
             case "-":
-                answer = premierElement - deuxiemeElement;
+                answer = premierElementCalculToDo - deuxiemeElementCalculToDo;
                 break;
             case "*":
-                answer = premierElement * deuxiemeElement;
+                answer = premierElementCalculToDo * deuxiemeElementCalculToDo;
                 break;
             case "/":
-                answer = (double) premierElement / deuxiemeElement;
+                answer = (double) premierElementCalculToDo / deuxiemeElementCalculToDo;
                 break;
         }
     }
 
     private void verifyAnswer(){
         try {
-            String userAnswerText = answerText.getText().toString()
-                                    .replace(",", ".");
-            double userAnswer = Double.parseDouble(userAnswerText);
+
+            double userAnswer = Double.parseDouble(textViewCalcul.getText().toString());
+
             if(answer == userAnswer) {
                 Toast.makeText(this, "Bonne réponse !", Toast.LENGTH_SHORT).show();
                 score++;
             } else {
-                Toast.makeText(this, "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
+
+                // TODO : CENTREE LE TEXT DANS LE TOAST
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
+                layout.setBackgroundResource(R.drawable.custom_toast_red);
+                TextView text = (TextView) layout.findViewById(R.id.toast_text);
+                text.setText("Mauvaise réponse !");
+                Toast toast = new Toast(getApplicationContext());
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(layout);
+                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                if( v != null) v.setGravity(Gravity.CENTER);
+                toast.show();
                 life--;
             }
             if(life > 0) {
                 updateToolBar();
-                generateCalcul();
+                if(!pause)
+                    generateCalcul();
+                else {
+                    bouton_pause.setEnabled(true);
+                    clickableAllButton(false);
+                }
             } else {
                 Intent intent = new Intent(this, RegistrationActivity.class);
                 intent.putExtra("SCORE", score);
@@ -149,5 +266,61 @@ public class CalculMentalActivity extends AppCompatActivity {
             Toast.makeText(this, "Votre réponse est mal écrite !",
                             Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // -------------------------- PARTIE TEXTE --------------------------
+
+    private void ajouterUnChiffre(Integer chiffreAAjouter){
+        if(userAnswerString == null) {
+            userAnswerString = String.valueOf(chiffreAAjouter);
+        } else {
+            userAnswerString = userAnswerString + chiffreAAjouter;
+        }
+        majTextView(userAnswerString);
+    }
+
+    private void ajouterSubStract(){
+        if(userAnswerString == null || userAnswerString.length() == 0) {
+            userAnswerString = "-";
+            majTextView(userAnswerString);
+        } else {
+            Toast.makeText(this, "Vous ne pouvez mettre un - qu'au début de votre réponse !",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void ajouterDot(){
+        if(userAnswerString == null || userAnswerString.length() == 0) {
+            Toast.makeText(this, "Votre réponse ne peux pas commencer par un point !",
+                    Toast.LENGTH_SHORT).show();
+        } else if(userAnswerString.contains(".")) {
+            Toast.makeText(this, "Votre réponse ne peux pas contenir 2 points !",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            userAnswerString = userAnswerString + ".";
+            majTextView(userAnswerString);
+        }
+    }
+
+    private void remove() {
+        if(userAnswerString == null || userAnswerString.length() == 0) {
+            Toast.makeText(this, "Il n'y a rien à supprimer !",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            StringBuilder sb = new StringBuilder(userAnswerString);
+            sb.deleteCharAt(sb.length()-1);
+            userAnswerString = sb.toString();
+            majTextView(userAnswerString);
+        }
+    }
+
+    private void clear() {
+        userAnswerString = "";
+        majTextView(userAnswerString);
+    }
+
+
+    private void majTextView(String newUserAnswer){
+        textViewCalcul.setText(newUserAnswer);
     }
 }
