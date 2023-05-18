@@ -2,14 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timeleft"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".CalculMentalActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/timeLeftTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/time_left"
+            android:textColor="@color/white"
+            tools:paddingRight="10dp"
+            android:textAlignment="textEnd"
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/calcul"
+                android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -32,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="28sp" />
 
         </LinearLayout>
@@ -60,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_7" />
+                    android:text="@string/bouton_7"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -73,7 +88,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_8" />
+                    android:text="@string/bouton_8"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -86,7 +102,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_9" />
+                    android:text="@string/bouton_9"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -99,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_clear" />
+                    android:text="@string/bouton_clear"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -124,7 +142,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_4" />
+                    android:text="@string/bouton_4"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -137,7 +156,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_5" />
+                    android:text="@string/bouton_5"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -150,7 +170,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_6" />
+                    android:text="@string/bouton_6"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -163,7 +184,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_substract" />
+                    android:text="@string/bouton_substract"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -188,7 +210,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_1" />
+                    android:text="@string/bouton_1"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -201,7 +224,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_2" />
+                    android:text="@string/bouton_2"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -214,7 +238,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_3" />
+                    android:text="@string/bouton_3"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -227,7 +252,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_pause" />
+                    android:text="@string/bouton_pause"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -251,7 +277,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_0" />
+                    android:text="@string/bouton_0"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -264,7 +291,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_dot" />
+                    android:text="@string/bouton_dot"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -277,7 +305,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_remove" />
+                    android:text="@string/bouton_remove"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -290,7 +319,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/bouton_result" />
+                    android:text="@string/bouton_result"
+                    app:backgroundTint="@null" />
 
                 <Space
                     android:layout_width="wrap_content"

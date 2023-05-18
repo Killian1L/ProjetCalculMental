@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".HighScoreActivity">
 
     <LinearLayout
@@ -19,6 +20,12 @@
             android:id="@+id/listViewHighScores"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/backToHomeHighScoreButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backToHome" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

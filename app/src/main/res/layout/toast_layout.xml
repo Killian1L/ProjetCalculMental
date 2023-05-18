@@ -5,16 +5,11 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/toast_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp" />
-
     <TextView
         android:id="@+id/toast_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFF" />
+        android:textColor="#FFF"
+        android:gravity="center"/>
 
 </LinearLayout>

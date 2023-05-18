@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.Random;
 
 public class CalculMentalActivity extends AppCompatActivity {
+
 
     // Partie génération du calcul / gestion du jeu
     private TextView calculToDo;
@@ -29,10 +32,13 @@ public class CalculMentalActivity extends AppCompatActivity {
     private int deuxiemeElementCalculToDo;
     private String symboleCalculToDo;
     private double answer;
+    private CountDownTimer countDownTimer;
+    private long timeLeft = 0;
 
 
     private MenuItem lifeItem;
     private MenuItem scoreItem;
+    private TextView timeLeftTextView;
 
     // Partie bouton
 
@@ -63,7 +69,10 @@ public class CalculMentalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul_mental);
 
+        
+
         calculToDo = findViewById(R.id.calculToDo);
+        timeLeftTextView = findViewById(R.id.timeLeftTextView);
 
         // Bouton des chiffres
 
@@ -121,6 +130,8 @@ public class CalculMentalActivity extends AppCompatActivity {
         score = 0;
         minimum = 1;
         maximum = 10;
+        timeLeft = (60000*(long) 1+1000);
+
     }
 
     @Override
@@ -133,8 +144,19 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         updateToolBar();
         generateCalcul();
+        startTimer();
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
     }
 
     private void updateToolBar() {
@@ -148,11 +170,11 @@ public class CalculMentalActivity extends AppCompatActivity {
             pause = false;
             bouton_pause.setText("pause");
             generateCalcul();
+            startTimer();
         } else {
             pause = true;
             bouton_pause.setEnabled(false);
-            bouton_pause.setText("unpause");
-            Toast.makeText(this, "Le jeu sera pause au prochain calcul !", Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.game_will_be_paused));
         }
     }
 
@@ -185,7 +207,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         Random random = new Random();
         premierElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
 
-        int result = random.nextInt(5);
+        int result = random.nextInt(4-1)+1;
         switch (result) {
             case 1:
                 symboleCalculToDo = "+";
@@ -226,49 +248,81 @@ public class CalculMentalActivity extends AppCompatActivity {
 
     private void verifyAnswer(){
         try {
-
             double userAnswer = Double.parseDouble(textViewCalcul.getText().toString());
 
             if(answer == userAnswer) {
-                Toast.makeText(this, "Bonne réponse !", Toast.LENGTH_SHORT).show();
+                printGreenToast(getString(R.string.good_response));
                 score++;
             } else {
-
-                // TODO : CENTREE LE TEXT DANS LE TOAST
-                LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
-                layout.setBackgroundResource(R.drawable.custom_toast_red);
-                TextView text = (TextView) layout.findViewById(R.id.toast_text);
-                text.setText("Mauvaise réponse !");
-                Toast toast = new Toast(getApplicationContext());
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.setView(layout);
-                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                if( v != null) v.setGravity(Gravity.CENTER);
-                toast.show();
                 life--;
             }
             if(life > 0) {
+                if(answer != userAnswer)
+                    printRedToast(getString(R.string.bad_response));
                 updateToolBar();
                 if(!pause)
                     generateCalcul();
                 else {
                     bouton_pause.setEnabled(true);
                     clickableAllButton(false);
+                    pauseTimer();
+                    bouton_pause.setText("unpause");
                 }
             } else {
-                Intent intent = new Intent(this, RegistrationActivity.class);
-                intent.putExtra("SCORE", score);
-                startActivity(intent);
+                printRedToast(getString(R.string.loose));
+                toGameOver();
             }
-
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Votre réponse est mal écrite !",
-                            Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.poorly_written_answer));
         }
     }
 
+    private void toGameOver() {
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        intent.putExtra("SCORE", score);
+        startActivity(intent);
+    }
+
     // -------------------------- PARTIE TEXTE --------------------------
+
+    private void printRedToast(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
+        layout.setBackgroundResource(R.drawable.custom_toast_red);
+        TextView text = (TextView) layout.findViewById(R.id.toast_text);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    private void printGreenToast(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
+        layout.setBackgroundResource(R.drawable.custom_toast_green);
+        TextView text = (TextView) layout.findViewById(R.id.toast_text);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    private void printWarnToast(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
+        layout.setBackgroundResource(R.drawable.custom_toast_warn);
+        TextView text = (TextView) layout.findViewById(R.id.toast_text);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
 
     private void ajouterUnChiffre(Integer chiffreAAjouter){
         if(userAnswerString == null) {
@@ -284,18 +338,15 @@ public class CalculMentalActivity extends AppCompatActivity {
             userAnswerString = "-";
             majTextView(userAnswerString);
         } else {
-            Toast.makeText(this, "Vous ne pouvez mettre un - qu'au début de votre réponse !",
-                    Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.substract_error));
         }
     }
 
     private void ajouterDot(){
         if(userAnswerString == null || userAnswerString.length() == 0) {
-            Toast.makeText(this, "Votre réponse ne peux pas commencer par un point !",
-                    Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.dot_start_error));
         } else if(userAnswerString.contains(".")) {
-            Toast.makeText(this, "Votre réponse ne peux pas contenir 2 points !",
-                    Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.dot_2_error));
         } else {
             userAnswerString = userAnswerString + ".";
             majTextView(userAnswerString);
@@ -304,8 +355,7 @@ public class CalculMentalActivity extends AppCompatActivity {
 
     private void remove() {
         if(userAnswerString == null || userAnswerString.length() == 0) {
-            Toast.makeText(this, "Il n'y a rien à supprimer !",
-                    Toast.LENGTH_SHORT).show();
+            printWarnToast(getString(R.string.remove_nothing_error));
         } else {
             StringBuilder sb = new StringBuilder(userAnswerString);
             sb.deleteCharAt(sb.length()-1);
@@ -323,4 +373,32 @@ public class CalculMentalActivity extends AppCompatActivity {
     private void majTextView(String newUserAnswer){
         textViewCalcul.setText(newUserAnswer);
     }
+
+    private void pauseTimer() {
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
+    }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(timeLeft, 1000) {
+            @Override
+            public void onTick(long tempsRestant) {
+                timeLeft = tempsRestant;
+                timeLeftTextView.setText(getString(R.string.time_left) + " " + tempsRestant / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                    countDownTimer = null;
+                    printRedToast(getString(R.string.time_is_up));
+                    toGameOver();
+                }
+            }
+        };
+        countDownTimer.start();
+    }
+
 }

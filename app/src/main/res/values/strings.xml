@@ -13,6 +13,17 @@
     <string name="score"> Score : </string>
     <string name="calcul"> The calculation will be displayed here </string>
     <string name="answer"> Your answer </string>
+    <string name="bad_response"> Wrong answer </string>
+    <string name="good_response"> Right answer </string>
+    <string name="poorly_written_answer"> Your answer is badly written </string>
+    <string name="game_will_be_paused"> The game will be paused on the next calculation </string>
+    <string name="substract_error"> You can only put a - at the beginning of your answer ! </string>
+    <string name="dot_start_error"> Your answer cannot start with a dot ! </string>
+    <string name="dot_2_error"> Your answer cannot contain 2 dot ! </string>
+    <string name="remove_nothing_error"> There is nothing to delete ! </string>
+    <string name="loose"> You lost ! </string>
+    <string name="time_left"> Time left : </string>
+    <string name="time_is_up"> Time is up ! </string>
 
     <string name="bouton_0" translatable="false"> 0 </string>
     <string name="bouton_1" translatable="false"> 1 </string>
@@ -35,6 +46,9 @@
     <string name="pseudo"> Your pseudo </string>
     <string name="saveScore"> Save your score </string>
     <string name="yourScore"> Your score : </string>
+    <string name="empty_pseudo_error"> Pseudo cannot be empty </string>
+    <string name="too_long_pseudo_error"> Pseudo must be less than 30 characters </string>
+    <string name="score_registred"> The score has been saved </string>
 
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>

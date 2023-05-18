@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".RegistrationActivity">
 
     <LinearLayout
@@ -19,7 +20,8 @@
             android:id="@+id/aboutText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/aboutText" />
+            android:text="@string/aboutText"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/aboutBackToHomeButton"

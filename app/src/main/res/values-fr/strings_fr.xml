@@ -13,11 +13,25 @@
     <string name="score"> Score : </string>
     <string name="calcul"> Le calcul sera affiché ici </string>
     <string name="answer"> Votre réponse </string>
+    <string name="bad_response"> Mauvaise réponse </string>
+    <string name="good_response"> Bonne réponse </string>
+    <string name="poorly_written_answer"> Votre réponse est mal écrite </string>
+    <string name="game_will_be_paused"> La partie sera mise en pause au prochain calcul </string>
+    <string name="substract_error"> Vous ne pouvez mettre un - qu\'au début de votre réponse ! </string>
+    <string name="dot_start_error"> Votre réponse ne peux pas commencer par un point ! </string>
+    <string name="dot_2_error"> Votre réponse ne peux pas contenir 2 points ! </string>
+    <string name="remove_nothing_error"> Il n\'y a rien à supprimer ! </string>
+    <string name="loose"> Vous avez perdu ! </string>
+    <string name="time_left"> Temps restant : </string>
+    <string name="time_is_up"> Le temps est écoulé </string>
 
     <!--    RegistrationActivity    -->
     <string name="pseudo"> Votre pseudo </string>
     <string name="saveScore"> Sauvegarder votre score </string>
     <string name="yourScore"> Votre score : </string>
+    <string name="empty_pseudo_error"> Le pseudo ne peut pas être vide </string>
+    <string name="too_long_pseudo_error"> Le pseudo doit faire moins de 30 caractères </string>
+    <string name="score_registred"> Le score a bien été enregistré </string>
 
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>

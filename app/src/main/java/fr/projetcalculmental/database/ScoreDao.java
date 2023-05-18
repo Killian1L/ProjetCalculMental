@@ -49,7 +49,7 @@ public class ScoreDao extends BaseDao<Score> {
         String query =  "SELECT "+columnPseudo+", MAX("+columnScore+") AS " + columnScore + " " +
                         "FROM " +getTableName() + " " +
                         "GROUP BY " + columnPseudo + " " +
-                        "HAVING MAX(" + columnScore + ")";
+                        "ORDER BY " + columnScore + " DESC";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {

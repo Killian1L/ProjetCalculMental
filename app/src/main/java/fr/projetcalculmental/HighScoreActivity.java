@@ -2,7 +2,9 @@ package fr.projetcalculmental;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import fr.projetcalculmental.entities.Score;
 public class HighScoreActivity extends AppCompatActivity {
 
     private ListView listViewHighScores;
+    private TextView backToHomeButton;
     private ScoreDao scoreDao;
 
     @Override
@@ -30,5 +33,19 @@ public class HighScoreActivity extends AppCompatActivity {
         ScoreAdapter adapter = new ScoreAdapter(this, bestScores);
         listViewHighScores.setAdapter(adapter);
 
+        backToHomeButton = findViewById(R.id.backToHomeHighScoreButton);
+
+        backToHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backHome();
+            }
+        });
+    }
+
+    private void backHome(){
+        Intent mainIntent = new Intent(HighScoreActivity.this, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        HighScoreActivity.this.startActivity(mainIntent);
     }
 }
