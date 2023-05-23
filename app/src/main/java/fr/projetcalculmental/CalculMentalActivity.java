@@ -1,8 +1,12 @@
 package fr.projetcalculmental;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
@@ -13,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -130,7 +135,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         score = 0;
         minimum = 1;
         maximum = 10;
-        timeLeft = (60000*(long) 1+1000);
+        timeLeft = (10000*(long) 1+1000);
 
     }
 
@@ -155,10 +160,7 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         if(countDownTimer != null) {
             countDownTimer.cancel();
-            System.out.println("onPause !null");
         }
-
-        System.out.println("onPause");
     }
 
     @Override
@@ -167,10 +169,7 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         if(countDownTimer != null) {
             startTimer();
-            System.out.println("onResume !null");
         }
-
-        System.out.println("onResume");
     }
 
 
@@ -304,39 +303,54 @@ public class CalculMentalActivity extends AppCompatActivity {
     // -------------------------- PARTIE TEXTE --------------------------
 
     private void printRedToast(String message){
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
-        layout.setBackgroundResource(R.drawable.custom_toast_red);
-        TextView text = (TextView) layout.findViewById(R.id.toast_text);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+        printCustomToast(message, R.drawable.custom_toast_red);
     }
 
-    private void printGreenToast(String message){
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
-        layout.setBackgroundResource(R.drawable.custom_toast_green);
-        TextView text = (TextView) layout.findViewById(R.id.toast_text);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+    private void printRedToast(String message, int duration){
+        printCustomToast(message, R.drawable.custom_toast_red, duration);
     }
 
-    private void printWarnToast(String message){
+    public void printGreenToast(String message) {
+        printCustomToast(message, R.drawable.custom_toast_green);
+    }
+
+    public void printWarnToast(String message){
+        printCustomToast(message, R.drawable.custom_toast_warn, 1500);
+    }
+
+    public void printCustomToast(String message, int custom_layout_toast_id) {
+        printCustomToast(message, custom_layout_toast_id, 1000);
+    }
+
+    public void printCustomToast(String message, int custom_layout_toast_id, int duration) {
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout));
-        layout.setBackgroundResource(R.drawable.custom_toast_warn);
-        TextView text = (TextView) layout.findViewById(R.id.toast_text);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+        View layout = inflater.inflate(R.layout.custom_toast_layout, null);
+        layout.setBackgroundResource(custom_layout_toast_id);
+
+        TextView textView = layout.findViewById(R.id.custom_toast_text);
+        textView.setText(message);
+
+        PopupWindow popupWindow = new PopupWindow(
+                layout,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                false
+        );
+        popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setOutsideTouchable(false);
+
+        int offsetX = 0;
+        int offsetY = 16;
+        int gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+        popupWindow.showAtLocation(layout, gravity, offsetX, offsetY);
+
+        layout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.dismiss();
+            }
+        }, duration);
     }
 
     private void ajouterUnChiffre(Integer chiffreAAjouter){
@@ -408,9 +422,19 @@ public class CalculMentalActivity extends AppCompatActivity {
                 if (countDownTimer != null) {
                     countDownTimer.cancel();
                     countDownTimer = null;
-                    printRedToast(getString(R.string.time_is_up));
-                    toGameOver();
-                }
+                    printRedToast(getString(R.string.time_is_up), 2500);
+                    clickableAllButton(false);
+                    bouton_pause.setEnabled(false);
+
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    toGameOver();
+                                }
+                            },
+                            2500
+                    );}
             }
         };
         countDownTimer.start();

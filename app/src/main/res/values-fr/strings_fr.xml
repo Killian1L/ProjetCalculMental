@@ -37,10 +37,5 @@
     <string name="bestScorePseudo"> Pseudo : </string>
     <string name="bestScoreScore"> Score : </string>
 
-    <!--    AboutActivity    -->
-    <string name="aboutText"> Créé par : \n
-    - LEFRANCOIS Killian \n
-    - PINCHON Enzo
-    </string>
 
 </resources>

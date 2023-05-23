@@ -43,13 +43,6 @@ public class HighScoreActivity extends AppCompatActivity {
         });
     }
 
-    /* TODO :
-    - réduire le temps d'apparition des message "bonne réponse" et "mauvaise réponse"
-    - mettre plus d'espace entre les Toast et les boutons
-    - rajouter un textView sur HighScoreActivity ?
-    - rajouter des choses dans le About
-     */
-
     private void backHome(){
         Intent mainIntent = new Intent(HighScoreActivity.this, MainActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
