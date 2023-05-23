@@ -135,7 +135,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         score = 0;
         minimum = 1;
         maximum = 10;
-        timeLeft = (10000*(long) 1+1000);
+        timeLeft = (60000*(long) 1+1000);
 
     }
 
