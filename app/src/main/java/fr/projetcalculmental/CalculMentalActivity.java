@@ -155,9 +155,24 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         if(countDownTimer != null) {
             countDownTimer.cancel();
-            countDownTimer = null;
+            System.out.println("onPause !null");
         }
+
+        System.out.println("onPause");
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if(countDownTimer != null) {
+            startTimer();
+            System.out.println("onResume !null");
+        }
+
+        System.out.println("onResume");
+    }
+
 
     private void updateToolBar() {
         lifeItem.setTitle(getString(R.string.life) + " " + life);
