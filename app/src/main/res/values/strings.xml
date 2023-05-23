@@ -57,17 +57,17 @@
     <!--    AboutActivity    -->
     <string name="aboutText" translatable="false"> Créé par : \n
     - LEFRANCOIS Killian \n
-    - PINCHON Enzo \n\n\n
+    - PINCHON Enzo \n\n
 
-    Features en plus : \n\n
-    - Version anglaise et française du jeu \n\n
-    - Affichage du meilleur score par joueur \n\n
-    - Un système de temps (60 secondes par partie) \n\n
-    - Pouvoir mettre pause au jeu \n\n
-    - Un logo d\'application et design avancé \n\n
+    Features en plus : \n
+    - Version anglaise et française du jeu \n
+    - Affichage du meilleur score par joueur \n
+    - Un système de temps (60 secondes par partie) \n
+    - Pouvoir mettre pause au jeu \n
+    - Un logo d\'application et design avancé \n
     - Pouvoir quitter l\'application (sans l\'éteindre) \n
-        pendant la partie et pouvoir retourner dessus \n\n
-    - Protection contre l\'erreur et bouton AC/DEL \n\n
+        pendant la partie et pouvoir retourner dessus \n
+    - Protection contre l\'erreur et bouton AC/DEL \n
     - Protection contre la triche \n
         (Faire un retour en arrière dans le menu \n
         d\'enregistrement ne ramène pas sur le jeu \n
