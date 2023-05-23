@@ -67,6 +67,7 @@ public class CalculMentalActivity extends AppCompatActivity {
     private String userAnswerString;
 
     boolean pause = false;
+    boolean currentlyInPause = false;
 
 
     @Override
@@ -167,7 +168,7 @@ public class CalculMentalActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
-        if(countDownTimer != null) {
+        if(countDownTimer != null && !currentlyInPause) {
             startTimer();
         }
     }
@@ -182,6 +183,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         if(pause) {
             clickableAllButton(true);
             pause = false;
+            currentlyInPause = false;
             bouton_pause.setText("pause");
             generateCalcul();
             startTimer();
@@ -220,8 +222,9 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         Random random = new Random();
         premierElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
+        deuxiemeElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
 
-        int result = random.nextInt(4-1)+1;
+        int result = random.nextInt(4)+1;
         switch (result) {
             case 1:
                 symboleCalculToDo = "+";
@@ -234,10 +237,12 @@ public class CalculMentalActivity extends AppCompatActivity {
                 break;
             case 4:
                 symboleCalculToDo = "/";
+                deuxiemeElementCalculToDo = 2;
+                break;
+            default:
+                symboleCalculToDo = "+";
                 break;
         }
-
-        deuxiemeElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
 
         calculToDo.setText(premierElementCalculToDo + symboleCalculToDo + deuxiemeElementCalculToDo);
         calculAnswer();
@@ -277,6 +282,7 @@ public class CalculMentalActivity extends AppCompatActivity {
                 if(!pause)
                     generateCalcul();
                 else {
+                    currentlyInPause = true;
                     bouton_pause.setEnabled(true);
                     clickableAllButton(false);
                     pauseTimer();
