@@ -72,8 +72,9 @@
     - PINCHON Enzo \n\n
 
     Features en plus : \n
+    - Plusieurs difficultés (Avec des générateurs de calcul avancé) \n
     - Version anglaise et française du jeu \n
-    - Affichage du meilleur score par joueur \n
+    - Affichage du meilleur score par joueur et par difficulté \n
     - Un système de temps (60 secondes par partie) \n
     - Pouvoir mettre pause au jeu \n
     - Un logo d\'application et design avancé \n
