@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -17,8 +17,9 @@ import fr.projetcalculmental.entities.Score;
 public class HighScoreActivity extends AppCompatActivity {
 
     private ListView listViewHighScores;
-    private TextView backToHomeButton;
+    private Button backToLastPageButton;
     private ScoreDao scoreDao;
+    private int difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +28,26 @@ public class HighScoreActivity extends AppCompatActivity {
 
         listViewHighScores = findViewById(R.id.listViewHighScores);
 
+        Intent intent = getIntent();
+        difficulty = intent.getIntExtra("difficulty", 0);
+
         scoreDao = new ScoreDao(new ScoreBaseHelper(this, "BDD", 1));
-        List<Score> bestScores = scoreDao.getBestScore();
+        List<Score> bestScores = scoreDao.getBestScore(difficulty);
 
         ScoreAdapter adapter = new ScoreAdapter(this, bestScores);
         listViewHighScores.setAdapter(adapter);
 
-        backToHomeButton = findViewById(R.id.backToHomeHighScoreButton);
+        backToLastPageButton = findViewById(R.id.backToLastPageHighScoreButton);
 
-        backToHomeButton.setOnClickListener(new View.OnClickListener() {
+        backToLastPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backHome();
+                backToLastPage();
             }
         });
     }
 
-    private void backHome(){
-        Intent mainIntent = new Intent(HighScoreActivity.this, MainActivity.class);
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        HighScoreActivity.this.startActivity(mainIntent);
+    private void backToLastPage(){
+        finish();
     }
 }

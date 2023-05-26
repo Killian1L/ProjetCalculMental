@@ -18,6 +18,7 @@ public class ScoreDao extends BaseDao<Score> {
     public static String tableName = "Score";
     public static String columnPseudo = "Pseudo";
     public static String columnScore = "Score";
+    public static String columnDifficulty = "Difficulty";
     @Override
     protected String getTableName() {
         return tableName;
@@ -27,6 +28,7 @@ public class ScoreDao extends BaseDao<Score> {
     protected void putValues(ContentValues values, Score entity) {
         values.put(columnPseudo, entity.getPseudo());
         values.put(columnScore, entity.getScore());
+        values.put(columnDifficulty, entity.getDifficulty());
     }
 
     @Override
@@ -35,20 +37,24 @@ public class ScoreDao extends BaseDao<Score> {
 
         Integer indexPseudo = cursor.getColumnIndex(columnPseudo);
         Integer indexScore = cursor.getColumnIndex(columnScore);
+        Integer indexDifficulty = cursor.getColumnIndex(columnDifficulty);
 
         score.setPseudo(cursor.getString(indexPseudo));
         score.setScore(cursor.getInt(indexScore));
+        score.setDifficulty(cursor.getInt(indexDifficulty));
 
         return score;
     }
 
-    public List<Score> getBestScore() {
+    public List<Score> getBestScore(int difficulty) {
         List<Score> bestScores = new ArrayList<>();
 
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
-        String query =  "SELECT "+columnPseudo+", MAX("+columnScore+") AS " + columnScore + " " +
+
+        String query =  "SELECT "+columnPseudo+", " + columnDifficulty + ", MAX("+columnScore+") AS " + columnScore + " " +
                         "FROM " +getTableName() + " " +
-                        "GROUP BY " + columnPseudo + " " +
+                        "WHERE " + columnDifficulty + " = " + difficulty + " " +
+                        "GROUP BY " + columnPseudo + ", " + columnDifficulty + " " +
                         "ORDER BY " + columnScore + " DESC";
         Cursor cursor = db.rawQuery(query, null);
 

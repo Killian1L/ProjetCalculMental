@@ -22,7 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import fr.projetcalculmental.calculgenerator.Calculator;
+import fr.projetcalculmental.calculgenerator.EquationLineaire;
+import fr.projetcalculmental.calculgenerator.EquationSigma;
+import fr.projetcalculmental.calculgenerator.EquationSimple;
 
 public class CalculMentalActivity extends AppCompatActivity {
 
@@ -31,11 +38,7 @@ public class CalculMentalActivity extends AppCompatActivity {
     private TextView calculToDo;
     private int life;
     private int score;
-    private int minimum;
-    private int maximum;
-    private int premierElementCalculToDo;
-    private int deuxiemeElementCalculToDo;
-    private String symboleCalculToDo;
+    private int difficulty;
     private double answer;
     private CountDownTimer countDownTimer;
     private long timeLeft = 0;
@@ -74,8 +77,6 @@ public class CalculMentalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul_mental);
-
-        
 
         calculToDo = findViewById(R.id.calculToDo);
         timeLeftTextView = findViewById(R.id.timeLeftTextView);
@@ -132,10 +133,11 @@ public class CalculMentalActivity extends AppCompatActivity {
 
         textViewCalcul = findViewById(R.id.textViewCalcul);
 
+        Intent intent = getIntent();
+        difficulty = intent.getIntExtra("difficulty", 0);
+
         life = 3;
         score = 0;
-        minimum = 1;
-        maximum = 10;
         timeLeft = (60000*(long) 1+1000);
 
     }
@@ -220,49 +222,30 @@ public class CalculMentalActivity extends AppCompatActivity {
         userAnswerString = "";
         majTextView("...");
 
-        Random random = new Random();
-        premierElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
-        deuxiemeElementCalculToDo = random.nextInt(maximum-minimum) + minimum;
+        String calculToDoString = "";
 
-        int result = random.nextInt(4)+1;
-        switch (result) {
-            case 1:
-                symboleCalculToDo = "+";
-                break;
-            case 2:
-                symboleCalculToDo = "-";
-                break;
-            case 3:
-                symboleCalculToDo = "*";
-                break;
-            case 4:
-                symboleCalculToDo = "/";
-                deuxiemeElementCalculToDo = 2;
-                break;
-            default:
-                symboleCalculToDo = "+";
-                break;
+
+        if(difficulty == 3) {
+            Map<String, Object> calcul = Calculator.getImpossibleCalcul();
+            calculToDoString = calcul.get("calcule").toString();
+            answer = Double.parseDouble(calcul.get("resultat").toString());
+
+        } else if(difficulty == 2) {
+            Map<String, Object> calcul = Calculator.getHardCalcul();
+            calculToDoString = calcul.get("calcule").toString();
+            answer = Double.parseDouble(calcul.get("resultat").toString());
+        } else if(difficulty == 1) {
+            Map<String, Object> calcul = Calculator.getMediumCalcul();
+            calculToDoString = calcul.get("calcule").toString();
+            answer = Double.parseDouble(calcul.get("resultat").toString());
+        } else {
+            Map<String, Object> calcul = Calculator.getEasyCalcul();
+            calculToDoString = calcul.get("calcule").toString();
+            answer = Double.parseDouble(calcul.get("resultat").toString());
         }
 
-        calculToDo.setText(premierElementCalculToDo + symboleCalculToDo + deuxiemeElementCalculToDo);
-        calculAnswer();
-    }
 
-    private void calculAnswer() {
-        switch (symboleCalculToDo) {
-            case "+":
-                answer = premierElementCalculToDo + deuxiemeElementCalculToDo;
-                break;
-            case "-":
-                answer = premierElementCalculToDo - deuxiemeElementCalculToDo;
-                break;
-            case "*":
-                answer = premierElementCalculToDo * deuxiemeElementCalculToDo;
-                break;
-            case "/":
-                answer = (double) premierElementCalculToDo / deuxiemeElementCalculToDo;
-                break;
-        }
+        calculToDo.setText(calculToDoString);
     }
 
     private void verifyAnswer(){
@@ -303,6 +286,7 @@ public class CalculMentalActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, RegistrationActivity.class);
         intent.putExtra("SCORE", score);
+        intent.putExtra("difficulty", difficulty);
         startActivity(intent);
     }
 

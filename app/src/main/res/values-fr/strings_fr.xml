@@ -2,11 +2,22 @@
 <resources>
 
     <string name="backToHome"> Revenir à la page principale </string>
+    <string name="backToLastPage"> Revenir à la page précédente </string>
 
     <!--    MainActivity    -->
     <string name="play"> Jouer </string>
     <string name="highScoreButton"> Meilleur Score </string>
     <string name="aboutButton"> À propos </string>
+
+    <!--    DifficultyActivity    -->
+    <string name="easy"> Facile </string>
+    <string name="medium"> Moyen </string>
+    <string name="hard"> Dur </string>
+    <string name="impossible"> Impossible </string>
+    <string name="choose_difficulty_to_play"> Choisissez une difficulté pour votre partie </string>
+
+    <!--    DifficultyHighScoreActivity    -->
+    <string name="choose_difficulty_to_show"> Choisissez une difficulté où vous voulez voir les meilleur scores </string>
 
     <!--    CalculMentalActivity    -->
     <string name="life"> Vie : </string>
@@ -31,6 +42,7 @@
     <string name="yourScore"> Votre score : </string>
     <string name="empty_pseudo_error"> Le pseudo ne peut pas être vide </string>
     <string name="too_long_pseudo_error"> Le pseudo doit faire moins de 30 caractères </string>
+    <string name="contains_invalid_character"> Le pseudo contient des caractères invalides </string>
     <string name="score_registred"> Le score a bien été enregistré </string>
 
     <!--    HighScoreActivity    -->

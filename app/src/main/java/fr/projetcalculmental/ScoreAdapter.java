@@ -26,8 +26,12 @@ public class ScoreAdapter extends ArrayAdapter<Score> {
         for(int i = 0; i < scoreList.size(); i++) {
             int max = i;
             for(int y = i+1; y < scoreList.size(); y++) {
-                if(scoreList.get(y).getScore() > scoreList.get(max).getScore()) {
+                if(scoreList.get(y).getDifficulty() > scoreList.get(max).getDifficulty()) {
                     max = y;
+                } else if(scoreList.get(y).getDifficulty() == scoreList.get(max).getDifficulty()) {
+                    if(scoreList.get(y).getScore() > scoreList.get(max).getScore()) {
+                        max = y;
+                    }
                 }
             }
 
@@ -50,11 +54,23 @@ public class ScoreAdapter extends ArrayAdapter<Score> {
 
         TextView pseudoTextView = view.findViewById(R.id.pseudoTextView);
         TextView scoreTextView = view.findViewById(R.id.scoreTextView);
+        TextView difficultyTextView = view.findViewById(R.id.difficultyTextView);
 
         Score score = scores.get(position);
 
         pseudoTextView.setText(score.getPseudo());
         scoreTextView.setText(String.valueOf(score.getScore()));
+
+        String diffultyName = "Easy";
+        if(score.getDifficulty() == 2) {
+            diffultyName = "Hard";
+        } else if(score.getDifficulty() == 1) {
+            diffultyName = "Medium";
+        } else if(score.getDifficulty() == 3) {
+            diffultyName = "Impossible";
+        }
+
+        difficultyTextView.setText(diffultyName);
 
         return view;
     }

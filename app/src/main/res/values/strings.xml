@@ -2,11 +2,22 @@
 
     <string name="app_name" translatable="false">Projet Calcul Mental</string>
     <string name="backToHome"> Back to home page </string>
+    <string name="backToLastPage"> Back to previous page </string>
 
     <!--    MainActivity    -->
     <string name="play"> Play </string>
     <string name="highScoreButton"> High Score </string>
     <string name="aboutButton"> About </string>
+
+    <!--    DifficultyActivity    -->
+    <string name="easy"> Easy </string>
+    <string name="medium"> Medium </string>
+    <string name="hard"> Hard </string>
+    <string name="impossible"> Impossible </string>
+    <string name="choose_difficulty_to_play"> Choose a difficulty for your game </string>
+
+    <!--    DifficultyHighScoreActivity    -->
+    <string name="choose_difficulty_to_show"> Choose a difficulty where you want to see the high score </string>
 
     <!--    CalculMentalActivity    -->
     <string name="life"> Life : </string>
@@ -48,6 +59,7 @@
     <string name="yourScore"> Your score : </string>
     <string name="empty_pseudo_error"> Pseudo cannot be empty </string>
     <string name="too_long_pseudo_error"> Pseudo must be less than 30 characters </string>
+    <string name="contains_invalid_character"> Pseudo contains invalid character </string>
     <string name="score_registred"> The score has been saved </string>
 
     <!--    HighScoreActivity    -->

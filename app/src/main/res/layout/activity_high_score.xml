@@ -7,25 +7,21 @@
     android:background="@drawable/background"
     tools:context=".HighScoreActivity">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listViewHighScores"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/backToLastPageHighScoreButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/backToLastPageHighScoreButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ListView
-            android:id="@+id/listViewHighScores"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/backToHomeHighScoreButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/backToHome" />
-    </LinearLayout>
+        android:text="@string/backToLastPage"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
