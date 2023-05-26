@@ -65,6 +65,7 @@
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>
     <string name="bestScoreScore"> Score : </string>
+    <string name="no_score"> There is no score for this difficulty </string>
 
     <!--    AboutActivity    -->
     <string name="aboutText" translatable="false"> Créé par : \n

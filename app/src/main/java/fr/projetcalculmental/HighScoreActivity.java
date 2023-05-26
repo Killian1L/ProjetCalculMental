@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class HighScoreActivity extends AppCompatActivity {
     private ListView listViewHighScores;
     private Button backToLastPageButton;
     private ScoreDao scoreDao;
+    private TextView noScoreTextView;
     private int difficulty;
 
     @Override
@@ -27,6 +29,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
         listViewHighScores = findViewById(R.id.listViewHighScores);
+        noScoreTextView = findViewById(R.id.noScoreTextView);
 
         Intent intent = getIntent();
         difficulty = intent.getIntExtra("difficulty", 0);
@@ -34,8 +37,13 @@ public class HighScoreActivity extends AppCompatActivity {
         scoreDao = new ScoreDao(new ScoreBaseHelper(this, "BDD", 1));
         List<Score> bestScores = scoreDao.getBestScore(difficulty);
 
-        ScoreAdapter adapter = new ScoreAdapter(this, bestScores);
-        listViewHighScores.setAdapter(adapter);
+        if(bestScores.size() == 0) {
+            noScoreTextView.setVisibility(View.VISIBLE);
+        } else {
+            noScoreTextView.setVisibility(View.INVISIBLE);
+            ScoreAdapter adapter = new ScoreAdapter(this, bestScores);
+            listViewHighScores.setAdapter(adapter);
+        }
 
         backToLastPageButton = findViewById(R.id.backToLastPageHighScoreButton);
 

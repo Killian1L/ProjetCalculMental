@@ -48,6 +48,6 @@
     <!--    HighScoreActivity    -->
     <string name="bestScorePseudo"> Pseudo : </string>
     <string name="bestScoreScore"> Score : </string>
-
+    <string name="no_score"> Il n\'y a pas de score pour cette difficulté </string>
 
 </resources>

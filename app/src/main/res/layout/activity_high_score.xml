@@ -7,6 +7,22 @@
     android:background="@drawable/background"
     tools:context=".HighScoreActivity">
 
+    <TextView
+        android:id="@+id/noScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/no_score"
+        android:textColor="@color/white"
+        tools:paddingRight="10dp"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <ListView
         android:id="@+id/listViewHighScores"
         android:layout_width="match_parent"
