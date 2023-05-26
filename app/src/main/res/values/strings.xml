@@ -79,11 +79,11 @@
     - Pouvoir mettre pause au jeu \n
     - Un logo d\'application et design avancé \n
     - Pouvoir quitter l\'application (sans l\'éteindre) \n
-        pendant la partie et pouvoir retourner dessus \n
+        pendant la partie et pouvoir retourner dessus
     - Protection contre l\'erreur et bouton AC/DEL \n
     - Protection contre la triche \n
-        (Faire un retour en arrière dans le menu \n
-        d\'enregistrement ne ramène pas sur le jeu \n
+        (Faire un retour en arrière dans le menu
+        d\'enregistrement ne ramène pas sur le jeu
         mais sur la page d\'accueil)
     </string>
 
